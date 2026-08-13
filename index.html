@@ -1,1957 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
+function calculateGP() {
 
-<head>
+    hideError();
 
-<meta charset="UTF-8">
+    // ---------------------------------------------
+    // 1. Check Product
+    // ---------------------------------------------
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    if (product.value === "") {
 
-<meta name="theme-color" content="#0F766E">
+        showError("Please choose a product.");
 
-<title>GP Calculator</title>
-
-<style>
-
-/* =========================================================
-   GLOBAL
-   ========================================================= */
-
-* {
-    box-sizing: border-box;
-}
-
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-}
-
-body {
-    margin: 0;
-    padding: 10px;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    background: #F1F5F9;
-
-    color: #111827;
-}
-
-.container {
-    width: 100%;
-    max-width: 760px;
-    margin: 0 auto;
-}
-
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.header {
-    width: 100%;
-
-    background: #0F766E;
-
-    color: white;
-
-    padding: 20px;
-
-    border-radius: 16px 16px 0 0;
-
-    display: flex;
-    align-items: center;
-
-    gap: 15px;
-
-    overflow: hidden;
-}
-
-.logo {
-    width: 60px;
-    height: 60px;
-
-    min-width: 60px;
-    min-height: 60px;
-
-    flex: 0 0 60px;
-
-    border-radius: 14px;
-
-    background: rgba(255,255,255,0.18);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: white;
-
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.header-text {
-    min-width: 0;
-}
-
-.header h1 {
-    margin: 0 0 5px 0;
-
-    font-size: 21px;
-}
-
-.header p {
-    margin: 0;
-
-    font-size: 12px;
-
-    opacity: 0.9;
-}
-
-
-/* =========================================================
-   CARD
-   ========================================================= */
-
-.card {
-    width: 100%;
-
-    background: white;
-
-    border-radius: 0 0 16px 16px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,0.08);
-}
-
-.section {
-    width: 100%;
-
-    padding: 24px;
-}
-
-.section-title {
-    margin-bottom: 20px;
-}
-
-.section-title h2 {
-    margin: 0 0 5px 0;
-
-    font-size: 18px;
-}
-
-.section-title p {
-    margin: 0;
-
-    color: #64748B;
-
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   FORM
-   ========================================================= */
-
-.form-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 18px;
-}
-
-.form-group {
-    width: 100%;
-
-    min-width: 0;
-}
-
-.form-group label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-    color: #374151;
-}
-
-.required {
-    color: #DC2626;
-}
-
-.badge {
-    display: inline-block;
-
-    margin-left: 5px;
-
-    padding: 3px 6px;
-
-    border-radius: 4px;
-
-    background: #CCFBF1;
-
-    color: #115E59;
-
-    font-size: 9px;
-}
-
-
-/* =========================================================
-   INPUT
-   ========================================================= */
-
-.form-control {
-    width: 100%;
-
-    height: 50px;
-
-    padding: 0 14px;
-
-    border: 1px solid #CBD5E1;
-
-    border-radius: 9px;
-
-    background: white;
-
-    color: #111827;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    font-size: 16px;
-
-    outline: none;
-
-    -webkit-appearance: none;
-    appearance: none;
-}
-
-.form-control:focus {
-    border-color: #0F766E;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(15,118,110,0.12);
-}
-
-.auto-input {
-    background: #F0FDFA;
-
-    color: #115E59;
-
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   CURRENCY / PERCENT
-   ========================================================= */
-
-.input-box {
-    position: relative;
-
-    width: 100%;
-}
-
-.currency {
-    position: absolute;
-
-    left: 14px;
-
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    color: #64748B;
-
-    font-weight: 700;
-
-    pointer-events: none;
-}
-
-.currency-input {
-    padding-left: 35px;
-}
-
-.percent {
-    position: absolute;
-
-    right: 14px;
-
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    color: #64748B;
-
-    font-weight: 700;
-
-    pointer-events: none;
-}
-
-.percent-input {
-    padding-right: 35px;
-}
-
-
-/* =========================================================
-   BONUS QTY SPECIAL INPUT
-   ========================================================= */
-
-.bonus-input-wrapper {
-    display: flex;
-
-    width: 100%;
-
-    gap: 8px;
-}
-
-.bonus-input-wrapper .form-control {
-    flex: 1;
-
-    min-width: 0;
-}
-
-
-/* PLUS BUTTON */
-
-.plus-button {
-    width: 52px;
-
-    min-width: 52px;
-
-    height: 50px;
-
-    border: 1px solid #0F766E;
-
-    border-radius: 9px;
-
-    background: #0F766E;
-
-    color: white;
-
-    font-size: 25px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 0;
-
-    touch-action: manipulation;
-
-    -webkit-tap-highlight-color: transparent;
-}
-
-.plus-button:hover {
-    background: #115E59;
-}
-
-.plus-button:active {
-    background: #115E59;
-
-    transform: scale(0.96);
-}
-
-
-/* =========================================================
-   HELP TEXT
-   ========================================================= */
-
-.help {
-    display: block;
-
-    margin-top: 5px;
-
-    color: #64748B;
-
-    font-size: 10px;
-
-    line-height: 1.4;
-}
-
-
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
-.buttons {
-    width: 100%;
-
-    display: flex;
-
-    gap: 12px;
-
-    margin-top: 25px;
-}
-
-button {
-    min-height: 50px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    font-size: 15px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    touch-action: manipulation;
-}
-
-.calculate {
-    flex: 1;
-
-    background: #0F766E;
-
-    color: white;
-}
-
-.calculate:hover {
-    background: #115E59;
-}
-
-.calculate:active {
-    background: #115E59;
-}
-
-.reset {
-    width: 120px;
-
-    background: #E2E8F0;
-
-    color: #334155;
-}
-
-.reset:hover {
-    background: #CBD5E1;
-}
-
-
-/* =========================================================
-   ERROR
-   ========================================================= */
-
-.error {
-    display: none;
-
-    margin-top: 16px;
-
-    padding: 12px;
-
-    border: 1px solid #FECACA;
-
-    border-radius: 8px;
-
-    background: #FEF2F2;
-
-    color: #B91C1C;
-
-    font-size: 13px;
-
-    line-height: 1.4;
-}
-
-
-/* =========================================================
-   RESULT
-   ========================================================= */
-
-.result {
-    width: 100%;
-
-    border-top: 1px solid #E5E7EB;
-}
-
-.result-row {
-    width: 100%;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 15px;
-
-    padding: 15px 0;
-
-    border-bottom: 1px solid #E5E7EB;
-}
-
-.result-left {
-    min-width: 0;
-
-    flex: 1;
-}
-
-.result-name {
-    font-size: 14px;
-
-    font-weight: 700;
-
-    color: #374151;
-}
-
-.result-note {
-    margin-top: 3px;
-
-    color: #64748B;
-
-    font-size: 10px;
-}
-
-.result-value {
-    flex: 0 0 auto;
-
-    color: #111827;
-
-    font-size: 17px;
-
-    font-weight: 700;
-
-    white-space: nowrap;
-}
-
-.highlight {
-    padding: 15px 10px;
-
-    margin: 3px 0;
-
-    border-radius: 8px;
-
-    background: #F0FDFA;
-}
-
-.highlight .result-value {
-    color: #115E59;
-
-    font-size: 19px;
-}
-
-
-/* =========================================================
-   FORMULA
-   ========================================================= */
-
-.formula {
-    margin: 0 24px 24px;
-
-    padding: 16px;
-
-    border: 1px solid #E5E7EB;
-
-    border-radius: 10px;
-
-    background: #F8FAFC;
-}
-
-.formula h3 {
-    margin: 0 0 12px 0;
-
-    font-size: 14px;
-
-    color: #374151;
-}
-
-.formula p {
-    margin: 7px 0;
-
-    color: #64748B;
-
-    font-size: 11px;
-
-    line-height: 1.5;
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.footer {
-    padding: 14px;
-
-    border-top: 1px solid #E5E7EB;
-
-    text-align: center;
-
-    color: #94A3B8;
-
-    font-size: 10px;
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media screen and (max-width: 650px) {
-
-    .form-grid {
-        grid-template-columns: 1fr;
+        return;
     }
 
-}
 
+    // ---------------------------------------------
+    // 2. Get TP
+    // ---------------------------------------------
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media screen and (max-width: 480px) {
-
-    body {
-        padding: 5px;
-    }
-
-    .header {
-        padding: 16px;
-
-        border-radius: 12px 12px 0 0;
-    }
-
-    .logo {
-        width: 54px;
-        height: 54px;
-
-        min-width: 54px;
-        min-height: 54px;
-
-        flex-basis: 54px;
-    }
-
-    .header h1 {
-        font-size: 17px;
-    }
-
-    .header p {
-        font-size: 10px;
-    }
-
-    .section {
-        padding: 18px 14px;
-    }
-
-    .buttons {
-        flex-direction: column;
-    }
-
-    .calculate {
-        width: 100%;
-    }
-
-    .reset {
-        width: 100%;
-    }
-
-    .formula {
-        margin: 0 14px 18px;
-    }
-
-    /*
-       Make PLUS button very easy
-       to touch on mobile.
-    */
-
-    .plus-button {
-        width: 56px;
-
-        min-width: 56px;
-
-        height: 50px;
-
-        font-size: 26px;
-    }
-
-}
-
-
-/* =========================================================
-   VERY SMALL MOBILE
-   ========================================================= */
-
-@media screen and (max-width: 360px) {
-
-    .header {
-        gap: 10px;
-    }
-
-    .logo {
-        width: 48px;
-        height: 48px;
-
-        min-width: 48px;
-        min-height: 48px;
-
-        flex-basis: 48px;
-
-        font-size: 16px;
-    }
-
-    .header h1 {
-        font-size: 15px;
-    }
-
-    .form-control {
-        font-size: 15px;
-    }
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<div class="container">
-
-
-    <!-- =====================================================
-         HEADER
-         ===================================================== -->
-
-    <div class="header">
-
-        <div class="logo">
-            GP
-        </div>
-
-        <div class="header-text">
-
-            <h1>
-                Pharmaceutical GP Calculator
-            </h1>
-
-            <p>
-                Pricing, PTS & Gross Profit Calculator
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-
-        <!-- =================================================
-             INPUT SECTION
-             ================================================= -->
-
-        <div class="section">
-
-            <div class="section-title">
-
-                <h2>
-                    Product Pricing Details
-                </h2>
-
-                <p>
-                    Select product and enter bonus quantity
-                </p>
-
-            </div>
-
-
-            <div class="form-grid">
-
-
-                <!-- PRODUCT -->
-
-                <div class="form-group">
-
-                    <label for="product">
-
-                        Product Name
-
-                        <span class="required">*</span>
-
-                    </label>
-
-                    <select
-                        id="product"
-                        class="form-control">
-
-                        <option value="">
-                            Loading Products...
-                        </option>
-
-                    </select>
-
-                    <small class="help">
-
-                        Product data is loaded from
-                        product-master.csv
-
-                    </small>
-
-                </div>
-
-
-                <!-- GST -->
-
-                <div class="form-group">
-
-                    <label for="gst">
-
-                        GST Rate
-
-                        <span class="badge">
-                            AUTO
-                        </span>
-
-                    </label>
-
-                    <div class="input-box">
-
-                        <input
-                            id="gst"
-                            class="form-control percent-input auto-input"
-                            type="text"
-                            value="0.00"
-                            readonly>
-
-                        <span class="percent">
-                            %
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- TP -->
-
-                <div class="form-group">
-
-                    <label for="tp">
-
-                        Transfer Price (TP)
-
-                        <span class="badge">
-                            AUTO
-                        </span>
-
-                    </label>
-
-                    <div class="input-box">
-
-                        <span class="currency">
-                            ₹
-                        </span>
-
-                        <input
-                            id="tp"
-                            class="form-control currency-input auto-input"
-                            type="text"
-                            value="0.00"
-                            readonly>
-
-                    </div>
-
-                </div>
-
-
-                <!-- BONUS QTY -->
-
-                <div class="form-group">
-
-                    <label for="bonusQty">
-
-                        Bonus Qty
-
-                        <span class="required">*</span>
-
-                    </label>
-
-
-                    <!--
-                        PLUS BUTTON ADDED HERE
-                    -->
-
-                    <div class="bonus-input-wrapper">
-
-                        <input
-                            id="bonusQty"
-                            class="form-control"
-                            type="text"
-                            inputmode="numeric"
-                            pattern="[0-9+]*"
-                            placeholder="e.g. 10+2"
-                            autocomplete="off">
-
-
-                        <button
-                            type="button"
-                            id="plusButton"
-                            class="plus-button"
-                            aria-label="Add plus sign">
-
-                            +
-
-                        </button>
-
-                    </div>
-
-
-                    <small class="help">
-
-                        Enter Purchased Qty + Free Qty.
-                        Example: 10+2, 12+2, 20+5
-
-                    </small>
-
-                </div>
-
-
-                <!-- FREE QTY % -->
-
-                <div class="form-group">
-
-                    <label for="bonusPercent">
-
-                        Free Qty %
-
-                        <span class="badge">
-                            AUTO
-                        </span>
-
-                    </label>
-
-                    <div class="input-box">
-
-                        <input
-                            id="bonusPercent"
-                            class="form-control percent-input auto-input"
-                            type="text"
-                            value="0.00"
-                            readonly>
-
-                        <span class="percent">
-                            %
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- MRP -->
-
-                <div class="form-group">
-
-                    <label for="mrp">
-
-                        Maximum Retail Price (MRP)
-
-                        <span class="badge">
-                            AUTO
-                        </span>
-
-                    </label>
-
-                    <div class="input-box">
-
-                        <span class="currency">
-                            ₹
-                        </span>
-
-                        <input
-                            id="mrp"
-                            class="form-control currency-input auto-input"
-                            type="text"
-                            value="0.00"
-                            readonly>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PTS -->
-
-                <div class="form-group">
-
-                    <label for="pts">
-
-                        Price to Stockist (PTS)
-
-                        <span class="badge">
-                            AUTO
-                        </span>
-
-                    </label>
-
-                    <div class="input-box">
-
-                        <span class="currency">
-                            ₹
-                        </span>
-
-                        <input
-                            id="pts"
-                            class="form-control currency-input auto-input"
-                            type="text"
-                            value="0.00"
-                            readonly>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- =================================================
-                 BUTTONS
-                 ================================================= -->
-
-            <div class="buttons">
-
-                <button
-                    id="calculate"
-                    class="calculate"
-                    type="button">
-
-                    Calculate GP
-
-                </button>
-
-
-                <button
-                    id="reset"
-                    class="reset"
-                    type="button">
-
-                    Reset
-
-                </button>
-
-            </div>
-
-
-            <!-- ERROR -->
-
-            <div
-                id="error"
-                class="error">
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             RESULT SECTION
-             ================================================= -->
-
-        <div class="section">
-
-            <div class="section-title">
-
-                <h2>
-                    GP Result
-                </h2>
-
-                <p>
-                    Press Calculate GP to calculate profitability
-                </p>
-
-            </div>
-
-
-            <div class="result">
-
-
-                <!-- PTS -->
-
-                <div class="result-row">
-
-                    <div class="result-left">
-
-                        <div class="result-name">
-                            Auto PTS
-                        </div>
-
-                        <div class="result-note">
-                            Calculated from MRP and GST
-                        </div>
-
-                    </div>
-
-                    <div
-                        id="rPts"
-                        class="result-value">
-
-                        ₹ 0.00
-
-                    </div>
-
-                </div>
-
-
-                <!-- FREE QTY % -->
-
-                <div class="result-row">
-
-                    <div class="result-left">
-
-                        <div class="result-name">
-                            Free Qty %
-                        </div>
-
-                        <div class="result-note">
-                            Calculated from Bonus Qty
-                        </div>
-
-                    </div>
-
-                    <div
-                        id="rBonusPercent"
-                        class="result-value">
-
-                        0.00%
-
-                    </div>
-
-                </div>
-
-
-                <!-- EFFECTIVE TP -->
-
-                <div class="result-row">
-
-                    <div class="result-left">
-
-                        <div class="result-name">
-                            Effective TP
-                        </div>
-
-                        <div class="result-note">
-                            TP including free quantity cost
-                        </div>
-
-                    </div>
-
-                    <div
-                        id="rEffectiveTP"
-                        class="result-value">
-
-                        ₹ 0.00
-
-                    </div>
-
-                </div>
-
-
-                <!-- GP RUPEES -->
-
-                <div class="result-row highlight">
-
-                    <div class="result-left">
-
-                        <div class="result-name">
-                            GP (₹)
-                        </div>
-
-                        <div class="result-note">
-                            PTS − Effective TP
-                        </div>
-
-                    </div>
-
-                    <div
-                        id="rGP"
-                        class="result-value">
-
-                        ₹ 0.00
-
-                    </div>
-
-                </div>
-
-
-                <!-- GP PERCENT -->
-
-                <div class="result-row highlight">
-
-                    <div class="result-left">
-
-                        <div class="result-name">
-                            GP (%)
-                        </div>
-
-                        <div class="result-note">
-                            GP ÷ PTS × 100
-                        </div>
-
-                    </div>
-
-                    <div
-                        id="rGPPercent"
-                        class="result-value">
-
-                        0.00%
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             FORMULA
-             ================================================= -->
-
-        <div class="formula">
-
-            <h3>
-                Calculation Formula
-            </h3>
-
-            <p>
-                <strong>Free Qty %:</strong>
-                Free Qty ÷ Purchased Qty × 100
-            </p>
-
-            <p>
-                <strong>PTS:</strong>
-                (MRP ÷ (1 + GST%)) × 80% × 90%
-            </p>
-
-            <p>
-                <strong>Effective TP:</strong>
-                TP × (1 + Free Qty% ÷ 100)
-            </p>
-
-            <p>
-                <strong>GP (₹):</strong>
-                PTS − Effective TP
-            </p>
-
-            <p>
-                <strong>GP (%):</strong>
-                GP ÷ PTS × 100
-            </p>
-
-        </div>
-
-
-        <div class="footer">
-
-            Pharmaceutical Pricing & GP Calculator
-
-        </div>
-
-
-    </div>
-
-</div>
-
-
-<script>
-
-
-/* =========================================================
-   ELEMENTS
-   ========================================================= */
-
-const product =
-    document.getElementById("product");
-
-const gst =
-    document.getElementById("gst");
-
-const tp =
-    document.getElementById("tp");
-
-const bonusQty =
-    document.getElementById("bonusQty");
-
-const plusButton =
-    document.getElementById("plusButton");
-
-const bonusPercent =
-    document.getElementById("bonusPercent");
-
-const mrp =
-    document.getElementById("mrp");
-
-const pts =
-    document.getElementById("pts");
-
-const calculateButton =
-    document.getElementById("calculate");
-
-const resetButton =
-    document.getElementById("reset");
-
-const errorBox =
-    document.getElementById("error");
-
-const resultPts =
-    document.getElementById("rPts");
-
-const resultBonusPercent =
-    document.getElementById("rBonusPercent");
-
-const resultEffectiveTP =
-    document.getElementById("rEffectiveTP");
-
-const resultGP =
-    document.getElementById("rGP");
-
-const resultGPPercent =
-    document.getElementById("rGPPercent");
-
-
-/* =========================================================
-   PRODUCT DATA
-   ========================================================= */
-
-let products = [];
-
-
-/* =========================================================
-   LOAD CSV
-   ========================================================= */
-
-async function loadProducts() {
-
-    try {
-
-        const response =
-            await fetch(
-                "product-master.csv",
-                {
-                    cache: "no-store"
-                }
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "CSV file could not be loaded."
-            );
-
-        }
-
-
-        const csvText =
-            await response.text();
-
-
-        products =
-            parseCSV(csvText);
-
-
-        populateProducts();
-
-
-    } catch (error) {
-
-        product.innerHTML =
-            '<option value="">Unable to load products</option>';
-
-
-        showError(
-            "Product Master CSV could not be loaded. Make sure product-master.csv is uploaded in the same GitHub repository as index.html."
-        );
-
-
-        console.error(error);
-
-    }
-
-}
-
-
-/* =========================================================
-   CSV PARSER
-   ========================================================= */
-
-function parseCSV(text) {
-
-    const rows = [];
-
-    let row = [];
-
-    let value = "";
-
-    let insideQuotes = false;
-
-
-    for (
-        let i = 0;
-        i < text.length;
-        i++
-    ) {
-
-        const char =
-            text[i];
-
-        const next =
-            text[i + 1];
-
-
-        if (
-            char === '"' &&
-            insideQuotes &&
-            next === '"'
-        ) {
-
-            value += '"';
-
-            i++;
-
-            continue;
-        }
-
-
-        if (char === '"') {
-
-            insideQuotes =
-                !insideQuotes;
-
-            continue;
-        }
-
-
-        if (
-            char === "," &&
-            !insideQuotes
-        ) {
-
-            row.push(
-                value.trim()
-            );
-
-            value = "";
-
-            continue;
-        }
-
-
-        if (
-            (
-                char === "\n" ||
-                char === "\r"
-            ) &&
-            !insideQuotes
-        ) {
-
-            if (
-                char === "\r" &&
-                next === "\n"
-            ) {
-
-                i++;
-
-            }
-
-
-            row.push(
-                value.trim()
-            );
-
-            value = "";
-
-
-            if (
-                row.some(
-                    item =>
-                        item !== ""
-                )
-            ) {
-
-                rows.push(row);
-
-            }
-
-
-            row = [];
-
-            continue;
-        }
-
-
-        value += char;
-
-    }
-
+    const tpValue = cleanNumber(tp.value);
 
     if (
-        value !== "" ||
-        row.length > 0
+        tpValue === null ||
+        tpValue < 0
     ) {
 
-        row.push(
-            value.trim()
-        );
+        showError("Please check TP.");
 
-
-        if (
-            row.some(
-                item =>
-                    item !== ""
-            )
-        ) {
-
-            rows.push(row);
-
-        }
-
+        return;
     }
 
 
-    if (
-        rows.length < 2
-    ) {
-
-        return [];
-
-    }
-
-
-    const headers =
-        rows[0].map(
-            header =>
-                header
-                    .trim()
-                    .toLowerCase()
-        );
-
-
-    const productCodeIndex =
-        findColumn(
-            headers,
-            [
-                "product code",
-                "productcode",
-                "code",
-                "item code",
-                "sku"
-            ]
-        );
-
-
-    const productNameIndex =
-        findColumn(
-            headers,
-            [
-                "product name",
-                "productname",
-                "name",
-                "product"
-            ]
-        );
-
-
-    const gstIndex =
-        findColumn(
-            headers,
-            [
-                "gst %",
-                "gst%",
-                "gst",
-                "gst rate"
-            ]
-        );
-
-
-    const tpIndex =
-        findColumn(
-            headers,
-            [
-                "tp",
-                "transfer price",
-                "transfer price (tp)"
-            ]
-        );
-
-
-    const mrpIndex =
-        findColumn(
-            headers,
-            [
-                "mrp",
-                "maximum retail price",
-                "maximum retail price (mrp)"
-            ]
-        );
-
-
-    if (
-        productNameIndex === -1 ||
-        gstIndex === -1 ||
-        tpIndex === -1 ||
-        mrpIndex === -1
-    ) {
-
-        throw new Error(
-            "Required CSV columns not found."
-        );
-
-    }
-
-
-    const result = [];
-
-
-    for (
-        let i = 1;
-        i < rows.length;
-        i++
-    ) {
-
-        const current =
-            rows[i];
-
-
-        const productCode =
-            productCodeIndex >= 0
-                ? current[productCodeIndex] || ""
-                : "";
-
-
-        const productName =
-            current[productNameIndex] || "";
-
-
-        const gstValue =
-            cleanNumber(
-                current[gstIndex]
-            );
-
-
-        const tpValue =
-            cleanNumber(
-                current[tpIndex]
-            );
-
-
-        const mrpValue =
-            cleanNumber(
-                current[mrpIndex]
-            );
-
-
-        if (
-            productName !== "" &&
-            gstValue !== null &&
-            tpValue !== null &&
-            mrpValue !== null
-        ) {
-
-            result.push({
-
-                code:
-                    productCode,
-
-                name:
-                    productName,
-
-                gst:
-                    gstValue,
-
-                tp:
-                    tpValue,
-
-                mrp:
-                    mrpValue
-
-            });
-
-        }
-
-    }
-
-
-    return result;
-
-}
-
-
-/* =========================================================
-   FIND COLUMN
-   ========================================================= */
-
-function findColumn(
-    headers,
-    possibleNames
-) {
-
-    for (
-        const name of possibleNames
-    ) {
-
-        const index =
-            headers.indexOf(
-                name.toLowerCase()
-            );
-
-
-        if (
-            index !== -1
-        ) {
-
-            return index;
-
-        }
-
-    }
-
-
-    return -1;
-
-}
-
-
-/* =========================================================
-   CLEAN NUMBER
-   ========================================================= */
-
-function cleanNumber(value) {
-
-    if (
-        value === undefined ||
-        value === null
-    ) {
-
-        return null;
-
-    }
-
-
-    let text =
-        String(value)
-            .trim()
-            .replace(/₹/g, "")
-            .replace(/%/g, "")
-            .replace(/,/g, "")
-            .trim();
-
-
-    if (
-        text === ""
-    ) {
-
-        return null;
-
-    }
-
-
-    const number =
-        parseFloat(text);
-
-
-    if (
-        isNaN(number)
-    ) {
-
-        return null;
-
-    }
-
-
-    return number;
-
-}
-
-
-/* =========================================================
-   POPULATE PRODUCT DROPDOWN
-   ========================================================= */
-
-function populateProducts() {
-
-    product.innerHTML =
-        "";
-
-
-    const defaultOption =
-        document.createElement("option");
-
-
-    defaultOption.value =
-        "";
-
-
-    defaultOption.textContent =
-        "Choose Product";
-
-
-    product.appendChild(
-        defaultOption
-    );
-
-
-    products.forEach(
-        function(item, index) {
-
-            const option =
-                document.createElement("option");
-
-
-            option.value =
-                index;
-
-
-            if (
-                item.code !== ""
-            ) {
-
-                option.textContent =
-                    item.code +
-                    " - " +
-                    item.name;
-
-            } else {
-
-                option.textContent =
-                    item.name;
-
-            }
-
-
-            product.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   PRODUCT CHANGE
-   ========================================================= */
-
-product.addEventListener(
-    "change",
-    function() {
-
-        const index =
-            parseInt(
-                product.value
-            );
-
-
-        if (
-            isNaN(index) ||
-            !products[index]
-        ) {
-
-            clearProductFields();
-
-            return;
-
-        }
-
-
-        const item =
-            products[index];
-
-
-        gst.value =
-            item.gst.toFixed(2);
-
-
-        tp.value =
-            item.tp.toFixed(2);
-
-
-        mrp.value =
-            item.mrp.toFixed(2);
-
-
-        calculatePTS();
-
-
-        clearGPResults();
-
-    }
-);
-
-
-/* =========================================================
-   BONUS QTY CALCULATION
-   ========================================================= */
-
-function calculateBonusPercent() {
-
-    const value =
+    // ---------------------------------------------
+    // 3. Read Bonus Qty
+    // Example: 10+2
+    // Purchased = 10
+    // Free = 2
+    // ---------------------------------------------
+
+    let bonusText =
         bonusQty.value
             .trim()
-            .replace(/\s+/g, "");
+            .replace(/\s/g, "");
 
 
-    if (
-        value === ""
-    ) {
+    if (bonusText === "") {
 
-        bonusPercent.value =
-            "0.00";
+        showError(
+            "Please enter Bonus Qty, for example 10+2."
+        );
 
-        return 0;
-
+        return;
     }
 
 
-    const parts =
-        value.split("+");
+    // Allow formats such as:
+    // 10+2
+    // 12+2
+    // 20+5
+
+    const bonusParts =
+        bonusText.split("+");
 
 
-    if (
-        parts.length !== 2
-    ) {
+    if (bonusParts.length !== 2) {
 
-        bonusPercent.value =
-            "0.00";
+        showError(
+            "Please enter Bonus Qty in the format 10+2."
+        );
 
-        return null;
-
+        return;
     }
 
 
     const purchasedQty =
-        parseFloat(
-            parts[0]
-        );
+        parseFloat(bonusParts[0]);
 
 
     const freeQty =
-        parseFloat(
-            parts[1]
-        );
+        parseFloat(bonusParts[1]);
 
 
     if (
@@ -1959,178 +86,97 @@ function calculateBonusPercent() {
         isNaN(freeQty)
     ) {
 
-        bonusPercent.value =
-            "0.00";
+        showError(
+            "Please enter valid Bonus Qty, for example 10+2."
+        );
 
-        return null;
-
+        return;
     }
 
 
-    if (
-        purchasedQty <= 0 ||
-        freeQty < 0
-    ) {
+    if (purchasedQty <= 0) {
 
-        bonusPercent.value =
-            "0.00";
+        showError(
+            "Purchased Qty must be greater than zero."
+        );
 
-        return null;
-
+        return;
     }
 
 
-    const percentage =
-        (
-            freeQty /
-            purchasedQty
-        ) * 100;
+    if (freeQty < 0) {
+
+        showError(
+            "Free Qty cannot be negative."
+        );
+
+        return;
+    }
+
+
+    // ---------------------------------------------
+    // 4. Calculate Free Qty %
+    // ---------------------------------------------
+
+    const freeQtyPercent =
+        (freeQty / purchasedQty) * 100;
 
 
     bonusPercent.value =
-        percentage.toFixed(2);
+        freeQtyPercent.toFixed(2);
 
 
-    return percentage;
-
-}
-
-
-/* =========================================================
-   PLUS BUTTON
-
-   Adds + to Bonus Qty.
-
-   Example:
-
-   10
-   ↓
-   tap +
-   ↓
-   10+
-   ↓
-   type 2
-   ↓
-   10+2
-   ========================================================= */
-
-plusButton.addEventListener(
-    "click",
-    function() {
-
-        const value =
-            bonusQty.value.trim();
-
-
-        /*
-           Do not add another +
-        */
-
-        if (
-            value.includes("+")
-        ) {
-
-            bonusQty.focus();
-
-            return;
-
-        }
-
-
-        /*
-           Don't allow + as
-           the first character.
-        */
-
-        if (
-            value === ""
-        ) {
-
-            bonusQty.focus();
-
-            return;
-
-        }
-
-
-        bonusQty.value =
-            value + "+";
-
-
-        /*
-           Recalculate Free Qty %
-           but NOT GP.
-        */
-
-        calculateBonusPercent();
-
-
-        /*
-           Put cursor at end.
-        */
-
-        bonusQty.focus();
-
-
-        try {
-
-            bonusQty.setSelectionRange(
-                bonusQty.value.length,
-                bonusQty.value.length
-            );
-
-        } catch (e) {}
-
-    }
-);
-
-
-/* =========================================================
-   CALCULATE PTS
-   =========================================================
-
-   PTS =
-   (MRP / (1 + GST%))
-   × 80%
-   × 90%
-
-   ========================================================= */
-
-function calculatePTS() {
-
-    const gstValue =
-        cleanNumber(
-            gst.value
-        );
-
+    // ---------------------------------------------
+    // 5. Get MRP and GST
+    // ---------------------------------------------
 
     const mrpValue =
-        cleanNumber(
-            mrp.value
-        );
+        cleanNumber(mrp.value);
+
+
+    const gstValue =
+        cleanNumber(gst.value);
 
 
     if (
-        gstValue === null ||
         mrpValue === null ||
         mrpValue <= 0
     ) {
 
-        pts.value =
-            "0.00";
+        showError(
+            "Please select a product with valid MRP."
+        );
 
-        return 0;
-
+        return;
     }
 
+
+    if (
+        gstValue === null ||
+        gstValue < 0
+    ) {
+
+        showError(
+            "Please select a product with valid GST."
+        );
+
+        return;
+    }
+
+
+    // ---------------------------------------------
+    // 6. Calculate PTS
+    //
+    // PTS =
+    // MRP / (1 + GST%)
+    // × 80%
+    // × 90%
+    // ---------------------------------------------
 
     const ptsValue =
         (
             mrpValue /
-            (
-                1 +
-                gstValue / 100
-            )
+            (1 + gstValue / 100)
         )
         * 0.80
         * 0.90;
@@ -2140,212 +186,44 @@ function calculatePTS() {
         ptsValue.toFixed(2);
 
 
-    return ptsValue;
-
-}
-
-
-/* =========================================================
-   BONUS QTY INPUT
-
-   Only Free Qty % changes.
-
-   GP DOES NOT calculate.
-   ========================================================= */
-
-bonusQty.addEventListener(
-    "input",
-    function() {
-
-        /*
-           Allow digits and + only.
-        */
-
-        let value =
-            bonusQty.value;
-
-
-        value =
-            value.replace(
-                /[^0-9+]/g,
-                ""
-            );
-
-
-        /*
-           Keep only the first +.
-        */
-
-        const plusIndex =
-            value.indexOf("+");
-
-
-        if (
-            plusIndex !== -1
-        ) {
-
-            const beforePlus =
-                value.substring(
-                    0,
-                    plusIndex
-                );
-
-
-            const afterPlus =
-                value
-                    .substring(
-                        plusIndex + 1
-                    )
-                    .replace(
-                        /\+/g,
-                        ""
-                    );
-
-
-            value =
-                beforePlus +
-                "+" +
-                afterPlus;
-
-        }
-
-
-        bonusQty.value =
-            value;
-
-
-        calculateBonusPercent();
-
-    }
-);
-
-
-/* =========================================================
-   CALCULATE GP
-
-   GP calculates ONLY when
-   Calculate GP button is pressed.
-   ========================================================= */
-
-function calculateGP() {
-
-    hideError();
-
-
-    /*
-       PRODUCT
-    */
-
-    if (
-        product.value === ""
-    ) {
-
-        showError(
-            "Please choose a product."
-        );
-
-        return;
-
-    }
-
-
-    /*
-       TP
-    */
-
-    const tpValue =
-        cleanNumber(
-            tp.value
-        );
-
-
-    if (
-        tpValue === null ||
-        tpValue < 0
-    ) {
-
-        showError(
-            "Please select a valid product with TP."
-        );
-
-        return;
-
-    }
-
-
-    /*
-       BONUS
-    */
-
-    const bonusValue =
-        calculateBonusPercent();
-
-
-    if (
-        bonusValue === null
-    ) {
-
-        showError(
-            "Please enter Bonus Qty in the format Purchased Qty + Free Qty, for example 10+2."
-        );
-
-        return;
-
-    }
-
-
-    /*
-       PTS
-    */
-
-    const ptsValue =
-        calculatePTS();
-
-
-    if (
-        ptsValue <= 0
-    ) {
-
-        showError(
-            "PTS could not be calculated. Please check GST and MRP."
-        );
-
-        return;
-
-    }
-
-
-    /*
-       EFFECTIVE TP
-
-       TP ×
-       (1 + Free Qty% / 100)
-    */
+    // ---------------------------------------------
+    // 7. Calculate Effective TP
+    //
+    // Example:
+    //
+    // TP = ₹100
+    // Bonus = 10+2
+    // Free Qty % = 20%
+    //
+    // Effective TP =
+    // 100 × 1.20
+    // = ₹120
+    // ---------------------------------------------
 
     const effectiveTP =
         tpValue *
         (
             1 +
-            bonusValue / 100
+            freeQtyPercent / 100
         );
 
 
-    /*
-       GP ₹
-
-       PTS − Effective TP
-    */
+    // ---------------------------------------------
+    // 8. Calculate GP ₹
+    //
+    // GP = PTS - Effective TP
+    // ---------------------------------------------
 
     const gp =
         ptsValue -
         effectiveTP;
 
 
-    /*
-       GP %
-
-       GP ÷ PTS × 100
-    */
+    // ---------------------------------------------
+    // 9. Calculate GP %
+    //
+    // GP % = GP / PTS × 100
+    // ---------------------------------------------
 
     const gpPercent =
         (
@@ -2354,175 +232,39 @@ function calculateGP() {
         ) * 100;
 
 
-    /*
-       DISPLAY
-    */
+    // ---------------------------------------------
+    // 10. SHOW RESULTS
+    // ---------------------------------------------
 
     resultPts.textContent =
-        money(
-            ptsValue
-        );
+        money(ptsValue);
 
 
     resultBonusPercent.textContent =
-        bonusValue.toFixed(2) +
-        "%";
+        freeQtyPercent.toFixed(2) + "%";
 
 
     resultEffectiveTP.textContent =
-        money(
-            effectiveTP
-        );
+        money(effectiveTP);
 
 
     resultGP.textContent =
-        money(
-            gp
-        );
+        money(gp);
 
 
     resultGPPercent.textContent =
-        gpPercent.toFixed(2) +
-        "%";
+        gpPercent.toFixed(2) + "%";
+
+
+    // ---------------------------------------------
+    // 11. Optional: scroll to result on mobile
+    // ---------------------------------------------
+
+    document
+        .querySelector(".result")
+        .scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
 
 }
-
-
-/* =========================================================
-   CALCULATE BUTTON
-   ========================================================= */
-
-calculateButton.addEventListener(
-    "click",
-    function() {
-
-        calculateGP();
-
-    }
-);
-
-
-/* =========================================================
-   RESET
-   ========================================================= */
-
-resetButton.addEventListener(
-    "click",
-    function() {
-
-        product.value =
-            "";
-
-        gst.value =
-            "0.00";
-
-        tp.value =
-            "0.00";
-
-        bonusQty.value =
-            "";
-
-        bonusPercent.value =
-            "0.00";
-
-        mrp.value =
-            "0.00";
-
-        pts.value =
-            "0.00";
-
-
-        clearGPResults();
-
-        hideError();
-
-    }
-);
-
-
-/* =========================================================
-   CLEAR PRODUCT FIELDS
-   ========================================================= */
-
-function clearProductFields() {
-
-    gst.value =
-        "0.00";
-
-    tp.value =
-        "0.00";
-
-    mrp.value =
-        "0.00";
-
-    pts.value =
-        "0.00";
-
-    clearGPResults();
-
-}
-
-
-/* =========================================================
-   CLEAR RESULTS
-   ========================================================= */
-
-function clearGPResults() {
-
-    resultPts.textContent =
-        "₹ 0.00";
-
-    resultBonusPercent.textContent =
-        "0.00%";
-
-    resultEffectiveTP.textContent =
-        "₹ 0.00";
-
-    resultGP.textContent =
-        "₹ 0.00";
-
-    resultGPPercent.textContent =
-        "0.00%";
-
-}
-
-
-/* =========================================================
-   ERROR
-   ========================================================= */
-
-function showError(message) {
-
-    errorBox.textContent =
-        message;
-
-    errorBox.style.display =
-        "block";
-
-}
-
-
-function hideError() {
-
-    errorBox.textContent =
-        "";
-
-    errorBox.style.display =
-        "none";
-
-}
-
-
-/* =========================================================
-   START
-   ========================================================= */
-
-loadProducts();
-
-
-</script>
-
-
-</body>
-
-</html>
