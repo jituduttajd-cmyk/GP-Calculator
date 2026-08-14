@@ -35,9 +35,7 @@ body {
 }
 
 body {
-
     background: #EEF5F6;
-
     color: #1F2937;
 
     font-family:
@@ -52,13 +50,12 @@ body {
 
 
 /* =========================================================
-   MAIN CONTAINER
+   CONTAINER
    ========================================================= */
 
 .container {
 
     width: 100%;
-
     max-width: 780px;
 
     margin: 0 auto;
@@ -104,10 +101,10 @@ body {
 
 .logo {
 
-    width: 100px;
+    width: 70px;
     height: 60px;
 
-    min-width: 100px;
+    min-width: 70px;
     min-height: 60px;
 
     display: flex;
@@ -214,8 +211,16 @@ body {
 
 
 /* =========================================================
-   FORM GRID
+   FORM LAYOUT
    ========================================================= */
+
+/*
+   Product Name = full width
+   Product Code + Pack Size = same row
+   GST + MRP = same row
+   Bonus Qty + Free Qty % = same row
+   PTS = full width
+*/
 
 .form-grid {
 
@@ -224,12 +229,15 @@ body {
     display: grid;
 
     grid-template-columns:
-        repeat(
-            2,
-            minmax(0, 1fr)
-        );
+        1fr 1fr;
 
     gap: 16px;
+}
+
+.full-width {
+
+    grid-column:
+        1 / -1;
 }
 
 
@@ -372,11 +380,6 @@ body {
 
     padding-left: 34px;
 }
-
-
-/* =========================================================
-   SEARCH RESULTS
-   ========================================================= */
 
 .search-results {
 
@@ -578,7 +581,6 @@ body {
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     font-family: Arial, sans-serif;
@@ -718,7 +720,6 @@ button {
 
 /* =========================================================
    GP RESULT
-   ONLY GP ₹ AND GP %
    ========================================================= */
 
 .gp-result {
@@ -726,10 +727,7 @@ button {
     display: grid;
 
     grid-template-columns:
-        repeat(
-            2,
-            minmax(0, 1fr)
-        );
+        1fr 1fr;
 
     gap: 14px;
 
@@ -839,9 +837,6 @@ button {
     font-size: 12px;
 
     font-weight: bold;
-
-    transition:
-        background 0.2s ease;
 }
 
 .details-button:hover {
@@ -995,7 +990,6 @@ button {
 
 /* =========================================================
    CALCULATION DETAILS
-   HIDDEN BY DEFAULT
    ========================================================= */
 
 .calculation-details {
@@ -1159,21 +1153,6 @@ button {
 
 
 /* =========================================================
-   TABLET
-   ========================================================= */
-
-@media screen and
-       (max-width: 650px) {
-
-    .form-grid {
-
-        grid-template-columns:
-            1fr;
-    }
-}
-
-
-/* =========================================================
    MOBILE
    ========================================================= */
 
@@ -1199,10 +1178,10 @@ button {
 
     .logo {
 
-        width: 100px;
+        width: 62px;
         height: 54px;
 
-        min-width: 100px;
+        min-width: 62px;
         min-height: 54px;
 
         font-size: 16px;
@@ -1223,6 +1202,56 @@ button {
         padding: 17px 13px;
     }
 
+
+    /*
+       IMPORTANT:
+       Keep these two-column rows
+       on mobile also.
+    */
+
+    .form-grid {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 10px;
+    }
+
+    .full-width {
+
+        grid-column:
+            1 / -1;
+    }
+
+
+    .form-control {
+
+        height: 44px;
+
+        padding-left: 9px;
+
+        padding-right: 9px;
+
+        font-size: 12px;
+    }
+
+
+    .search-input {
+
+        padding-left: 32px;
+    }
+
+
+    .plus-button {
+
+        width: 48px;
+
+        min-width: 48px;
+
+        height: 44px;
+    }
+
+
     .buttons {
 
         flex-direction: column;
@@ -1238,43 +1267,75 @@ button {
         width: 100%;
     }
 
+
     .gp-result {
 
         grid-template-columns:
-            1fr;
+            1fr 1fr;
+
+        gap: 8px;
     }
+
 
     .gp-card {
 
         min-height: 95px;
+
+        padding: 12px;
     }
 
     .gp-card-value {
 
-        font-size: 22px;
+        font-size: 20px;
     }
+
+
+    .details-grid {
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
 
     .modal-overlay {
 
         padding: 12px;
     }
+
 }
 
 
 /* =========================================================
-   SMALL MOBILE
+   VERY SMALL MOBILE
    ========================================================= */
 
 @media screen and
-       (max-width: 360px) {
+       (max-width: 340px) {
+
+    .container {
+
+        padding: 3px;
+    }
+
+    .section {
+
+        padding: 14px 9px;
+    }
+
+    .header {
+
+        padding: 10px;
+    }
 
     .logo {
 
-        width: 100px;
-        height: 50px;
+        width: 54px;
+        height: 48px;
 
-        min-width: 100px;
-        min-height: 50px;
+        min-width: 54px;
+        min-height: 48px;
+
+        font-size: 14px;
     }
 
     .header h1 {
@@ -1282,16 +1343,40 @@ button {
         font-size: 14px;
     }
 
+    .header p {
+
+        font-size: 8px;
+    }
+
+    .form-grid {
+
+        gap: 7px;
+    }
+
     .form-control {
 
-        font-size: 12px;
+        padding-left: 7px;
+
+        padding-right: 7px;
+
+        font-size: 11px;
+    }
+
+    .form-group label {
+
+        font-size: 11px;
     }
 
     .plus-button {
 
-        width: 52px;
+        width: 44px;
 
-        min-width: 52px;
+        min-width: 44px;
+    }
+
+    .gp-card-value {
+
+        font-size: 18px;
     }
 }
 
@@ -1335,7 +1420,7 @@ button {
 
 
         <!-- =================================================
-             INPUT SECTION
+             CALCULATOR
              ================================================= -->
 
         <div class="section">
@@ -1356,9 +1441,11 @@ button {
             <div class="form-grid">
 
 
-                <!-- PRODUCT NAME SEARCH -->
+                <!-- =================================================
+                     PRODUCT NAME - FULL WIDTH
+                     ================================================= -->
 
-                <div class="form-group"
+                <div class="form-group full-width"
                      style="position:relative;">
 
                     <label for="productSearch">
@@ -1402,7 +1489,9 @@ button {
                 </div>
 
 
-                <!-- PRODUCT CODE -->
+                <!-- =================================================
+                     PRODUCT CODE
+                     ================================================= -->
 
                 <div class="form-group">
 
@@ -1420,14 +1509,15 @@ button {
                         id="productCode"
                         class="form-control auto-input"
                         type="text"
-                        value=""
                         placeholder="Product Code"
                         readonly>
 
                 </div>
 
 
-                <!-- PACK SIZE -->
+                <!-- =================================================
+                     PACK SIZE
+                     ================================================= -->
 
                 <div class="form-group">
 
@@ -1445,14 +1535,15 @@ button {
                         id="packSize"
                         class="form-control auto-input"
                         type="text"
-                        value=""
                         placeholder="Pack Size"
                         readonly>
 
                 </div>
 
 
-                <!-- GST -->
+                <!-- =================================================
+                     GST
+                     ================================================= -->
 
                 <div class="form-group">
 
@@ -1486,7 +1577,9 @@ button {
                 </div>
 
 
-                <!-- MRP -->
+                <!-- =================================================
+                     MRP
+                     ================================================= -->
 
                 <div class="form-group">
 
@@ -1520,7 +1613,9 @@ button {
                 </div>
 
 
-                <!-- BONUS QTY -->
+                <!-- =================================================
+                     BONUS QTY
+                     ================================================= -->
 
                 <div class="form-group">
 
@@ -1547,6 +1642,7 @@ button {
                             spellcheck="false"
                             placeholder="e.g. 10+2">
 
+
                         <button
                             type="button"
                             id="plusButton"
@@ -1562,13 +1658,14 @@ button {
 
                     <small class="help">
                         Purchased Qty + Free Qty
-                        e.g. 10+2, 12+2, 20+5
                     </small>
 
                 </div>
 
 
-                <!-- FREE QTY % -->
+                <!-- =================================================
+                     FREE QTY %
+                     ================================================= -->
 
                 <div class="form-group">
 
@@ -1602,9 +1699,11 @@ button {
                 </div>
 
 
-                <!-- PTS -->
+                <!-- =================================================
+                     PTS - FULL WIDTH
+                     ================================================= -->
 
-                <div class="form-group">
+                <div class="form-group full-width">
 
                     <label for="pts">
 
@@ -1639,7 +1738,9 @@ button {
             </div>
 
 
-            <!-- BUTTONS -->
+            <!-- =================================================
+                 BUTTONS
+                 ================================================= -->
 
             <div class="buttons">
 
@@ -1676,8 +1777,7 @@ button {
 
 
         <!-- =================================================
-             GP RESULT SECTION
-             ONLY GP ₹ AND GP %
+             GP RESULT
              ================================================= -->
 
         <div class="section">
@@ -1698,8 +1798,6 @@ button {
             <div class="gp-result">
 
 
-                <!-- GP RUPEES -->
-
                 <div class="gp-card">
 
                     <div class="gp-card-label">
@@ -1716,8 +1814,6 @@ button {
 
                 </div>
 
-
-                <!-- GP PERCENT -->
 
                 <div class="gp-card">
 
@@ -1739,9 +1835,7 @@ button {
             </div>
 
 
-            <!-- =================================================
-                 PASSWORD PROTECTED DETAILS BUTTON
-                 ================================================= -->
+            <!-- DETAILS BUTTON -->
 
             <button
                 id="detailsButton"
@@ -1755,12 +1849,12 @@ button {
 
             <!-- =================================================
                  CALCULATION DETAILS
-                 HIDDEN BY DEFAULT
                  ================================================= -->
 
             <div
                 id="calculationDetails"
                 class="calculation-details">
+
 
                 <div class="details-title">
 
@@ -1836,8 +1930,6 @@ button {
                         </div>
 
 
-                        <!-- PTS AFTER MRP -->
-
                         <div class="detail-label">
                             PTS
                         </div>
@@ -1859,8 +1951,6 @@ button {
                             -
                         </div>
 
-
-                        <!-- EFFECTIVE TP AFTER TP -->
 
                         <div class="detail-label">
                             Effective TP
@@ -1922,7 +2012,7 @@ button {
                 </div>
 
 
-                <!-- FREE QTY -->
+                <!-- FREE QTY CALCULATION -->
 
                 <div class="details-section">
 
@@ -1953,7 +2043,7 @@ button {
                 </div>
 
 
-                <!-- PTS -->
+                <!-- PTS CALCULATION -->
 
                 <div class="details-section">
 
@@ -2230,15 +2320,11 @@ const errorBox =
     document.getElementById("error");
 
 
-/* =========================================================
-   HIDDEN TP
-   ========================================================= */
-
 let hiddenTP = 0;
 
 
 /* =========================================================
-   RESULT
+   RESULTS
    ========================================================= */
 
 const resultGP =
@@ -2263,7 +2349,7 @@ const calculationDetails =
 
 
 /* =========================================================
-   PASSWORD MODAL
+   PASSWORD
    ========================================================= */
 
 const passwordModal =
@@ -2379,14 +2465,12 @@ function cleanNumber(value) {
         return null;
     }
 
-
     const text =
         String(value)
             .trim()
             .replace(/₹/g, "")
             .replace(/%/g, "")
             .replace(/,/g, "");
-
 
     if (
         text === ""
@@ -2395,10 +2479,8 @@ function cleanNumber(value) {
         return null;
     }
 
-
     const number =
         Number(text);
-
 
     if (
         !Number.isFinite(number)
@@ -2406,7 +2488,6 @@ function cleanNumber(value) {
 
         return null;
     }
-
 
     return number;
 }
@@ -2425,8 +2506,8 @@ function money(value) {
         return "₹ 0.00";
     }
 
-
-    return "₹ " + value.toFixed(2);
+    return "₹ " +
+        value.toFixed(2);
 }
 
 
@@ -2756,23 +2837,18 @@ function parseCSV(text) {
 
             output.push({
 
-                code:
-                    code,
+                code: code,
 
-                name:
-                    name,
+                name: name,
 
-                pack:
-                    pack,
+                pack: pack,
 
-                gst:
-                    gstValue,
+                gst: gstValue,
 
-                tp:
-                    tpValue,
+                tp: tpValue,
 
-                mrp:
-                    mrpValue
+                mrp: mrpValue
+
             });
         }
     }
@@ -2783,7 +2859,7 @@ function parseCSV(text) {
 
 
 /* =========================================================
-   LOAD CSV
+   LOAD PRODUCTS
    ========================================================= */
 
 async function loadProducts() {
@@ -2834,7 +2910,7 @@ async function loadProducts() {
 
 
         showError(
-            "Product Master could not be loaded. Check product-master.csv and make sure it contains: Product Code, Product Name, Pack Size, GST %, TP and MRP."
+            "Product Master could not be loaded. Check product-master.csv."
         );
     }
 }
@@ -2979,6 +3055,7 @@ productSearch.addEventListener(
                         selectProduct(
                             item
                         );
+
                     }
                 );
 
@@ -3081,11 +3158,15 @@ function selectProduct(item) {
 
     calculationDetails.style.display =
         "none";
+
+
+    detailsButton.textContent =
+        "🔒 VIEW CALCULATION DETAILS";
 }
 
 
 /* =========================================================
-   SEARCH OUTSIDE
+   CLOSE SEARCH
    ========================================================= */
 
 document.addEventListener(
@@ -3095,15 +3176,13 @@ document.addEventListener(
         if (
             !event.target.closest(
                 ".search-wrapper"
-            ) &&
-            !event.target.closest(
-                "#searchResults"
             )
         ) {
 
             searchResults.style.display =
                 "none";
         }
+
     }
 );
 
@@ -3140,7 +3219,7 @@ function clearAutoFields() {
 
 
 /* =========================================================
-   PTS
+   PTS CALCULATION
    ========================================================= */
 
 function calculatePTS() {
@@ -3274,12 +3353,13 @@ function parseBonusQty() {
 
         free:
             free
+
     };
 }
 
 
 /* =========================================================
-   FREE QTY %
+   BONUS %
    ========================================================= */
 
 function calculateBonusPercent() {
@@ -3383,7 +3463,7 @@ bonusQty.addEventListener(
 
 
 /* =========================================================
-   MOBILE PLUS BUTTON
+   PLUS BUTTON
    ========================================================= */
 
 plusButton.addEventListener(
@@ -3449,22 +3529,19 @@ function clearResults() {
     resultGPPercent.textContent =
         "0.00%";
 
-
     lastCalculation =
         null;
 }
 
 
 /* =========================================================
-   MAIN CALCULATION
+   CALCULATE GP
    ========================================================= */
 
 function calculateGP() {
 
     hideError();
 
-
-    /* PRODUCT */
 
     if (
         !selectedProduct
@@ -3478,15 +3555,12 @@ function calculateGP() {
     }
 
 
-    /* TP */
-
     const tpValue =
         hiddenTP;
 
 
     if (
-        !Number.isFinite(tpValue) ||
-        tpValue < 0
+        !Number.isFinite(tpValue)
     ) {
 
         showError(
@@ -3496,8 +3570,6 @@ function calculateGP() {
         return;
     }
 
-
-    /* BONUS */
 
     const bonus =
         parseBonusQty();
@@ -3515,8 +3587,6 @@ function calculateGP() {
     }
 
 
-    /* FREE QTY % */
-
     const freeQtyPercent =
 
         (
@@ -3533,15 +3603,11 @@ function calculateGP() {
         freeQtyPercent.toFixed(2);
 
 
-    /* GST */
-
     const gstValue =
         cleanNumber(
             gst.value
         );
 
-
-    /* MRP */
 
     const mrpValue =
         cleanNumber(
@@ -3551,31 +3617,21 @@ function calculateGP() {
 
     if (
         gstValue === null ||
-        gstValue < 0
-    ) {
-
-        showError(
-            "Please check GST %."
-        );
-
-        return;
-    }
-
-
-    if (
         mrpValue === null ||
         mrpValue <= 0
     ) {
 
         showError(
-            "Please check MRP."
+            "Please check GST and MRP."
         );
 
         return;
     }
 
 
-    /* PTS */
+    /*
+       PTS
+    */
 
     const ptsValue =
 
@@ -3596,26 +3652,13 @@ function calculateGP() {
         0.90;
 
 
-    if (
-        !Number.isFinite(
-            ptsValue
-        ) ||
-        ptsValue <= 0
-    ) {
-
-        showError(
-            "PTS could not be calculated."
-        );
-
-        return;
-    }
-
-
     pts.value =
         ptsValue.toFixed(2);
 
 
-    /* EFFECTIVE TP */
+    /*
+       EFFECTIVE TP
+    */
 
     const effectiveTP =
 
@@ -3627,14 +3670,18 @@ function calculateGP() {
         );
 
 
-    /* GP */
+    /*
+       GP
+    */
 
     const gp =
         ptsValue -
         effectiveTP;
 
 
-    /* GP % */
+    /*
+       GP %
+    */
 
     const gpPercent =
 
@@ -3648,7 +3695,9 @@ function calculateGP() {
         100;
 
 
-    /* DISPLAY ONLY GP */
+    /*
+       DISPLAY
+    */
 
     resultGP.textContent =
         money(gp);
@@ -3659,7 +3708,9 @@ function calculateGP() {
         "%";
 
 
-    /* SAVE */
+    /*
+       SAVE
+    */
 
     lastCalculation = {
 
@@ -3709,11 +3760,6 @@ function calculateGP() {
     };
 
 
-    /*
-       Details are hidden by default.
-       If already unlocked, update them.
-    */
-
     if (
         calculationDetails.style.display ===
         "block"
@@ -3740,17 +3786,12 @@ calculateButton.addEventListener(
 
 
 /* =========================================================
-   DETAILS PASSWORD BUTTON
+   DETAILS BUTTON
    ========================================================= */
 
 detailsButton.addEventListener(
     "click",
     function() {
-
-        /*
-           If details are already visible,
-           hide them.
-        */
 
         if (
             calculationDetails.style.display ===
@@ -3766,10 +3807,6 @@ detailsButton.addEventListener(
             return;
         }
 
-
-        /*
-           Otherwise ask for password.
-        */
 
         if (
             !lastCalculation
@@ -3903,67 +3940,46 @@ function populateCalculationDetails() {
         lastCalculation;
 
 
-    /* PRODUCT */
-
     dProduct.textContent =
         c.product;
-
 
     dProductCode.textContent =
         c.code;
 
-
     dPackSize.textContent =
         c.pack;
-
 
     dGST.textContent =
         c.gst.toFixed(2) +
         "%";
 
-
     dMRP.textContent =
         money(c.mrp);
-
-
-    /*
-       PTS AFTER MRP
-    */
 
     dPTS.textContent =
         money(c.pts);
 
-
     dTP.textContent =
         money(c.tp);
-
-
-    /*
-       EFFECTIVE TP AFTER TP
-    */
 
     dEffectiveTP.textContent =
         money(c.effectiveTP);
 
-
     dBonus.textContent =
         c.bonus;
-
 
     dPurchased.textContent =
         c.purchased;
 
-
     dFree.textContent =
         c.free;
-
 
     dFreePercent.textContent =
         c.freePercent.toFixed(2) +
         "%";
 
 
-    /* FREE QTY FORMULA */
+    /* FREE QTY */
 
     formulaFree.textContent =
 
@@ -3981,7 +3997,7 @@ function populateCalculationDetails() {
         "%";
 
 
-    /* PTS FORMULA */
+    /* PTS */
 
     formulaPTS.textContent =
 
@@ -4142,13 +4158,17 @@ resetButton.addEventListener(
             "none";
 
 
+        searchResults.style.display =
+            "none";
+
+
         hideError();
     }
 );
 
 
 /* =========================================================
-   ESCAPE KEY
+   ESCAPE
    ========================================================= */
 
 document.addEventListener(
@@ -4170,7 +4190,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   LOAD
+   INITIAL LOAD
    ========================================================= */
 
 document.addEventListener(
