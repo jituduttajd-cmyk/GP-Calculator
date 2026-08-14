@@ -16,7 +16,6 @@
 
 <title>TYYKEM GP Calculator</title>
 
-
 <style>
 
 /* =========================================================
@@ -41,9 +40,10 @@ body {
 
     color: #1F2937;
 
-    font-family: Cambria,
-                 Georgia,
-                 serif;
+    font-family:
+        Cambria,
+        Georgia,
+        serif;
 
     font-size: 12px;
 
@@ -52,7 +52,7 @@ body {
 
 
 /* =========================================================
-   CONTAINER
+   MAIN CONTAINER
    ========================================================= */
 
 .container {
@@ -120,7 +120,7 @@ body {
 
     border:
         1px solid
-        rgba(255,255,255,0.3);
+        rgba(255,255,255,0.30);
 
     border-radius: 12px;
 
@@ -133,9 +133,9 @@ body {
 
 .header-content {
 
-    min-width: 0;
-
     flex: 1;
+
+    min-width: 0;
 }
 
 .header h1 {
@@ -153,7 +153,7 @@ body {
 
     font-size: 11px;
 
-    opacity: 0.9;
+    opacity: 0.90;
 }
 
 
@@ -283,7 +283,7 @@ body {
 
 
 /* =========================================================
-   INPUT
+   FORM CONTROL
    ========================================================= */
 
 .form-control {
@@ -338,7 +338,7 @@ body {
 
 
 /* =========================================================
-   SEARCH PRODUCT
+   SEARCH
    ========================================================= */
 
 .search-wrapper {
@@ -470,7 +470,7 @@ body {
 
 
 /* =========================================================
-   CURRENCY / PERCENT
+   INPUT BOX
    ========================================================= */
 
 .input-box {
@@ -578,6 +578,7 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     font-family: Arial, sans-serif;
@@ -664,6 +665,10 @@ button {
     background: #0F4C5C;
 
     color: white;
+
+    box-shadow:
+        0 4px 10px
+        rgba(15,76,92,0.20);
 }
 
 .calculate:hover {
@@ -712,96 +717,105 @@ button {
 
 
 /* =========================================================
-   RESULT
+   GP RESULT
+   ONLY GP ₹ AND GP %
    ========================================================= */
 
-.result {
+.gp-result {
 
-    width: 100%;
+    display: grid;
 
-    border-top:
-        1px solid
-        #E5E7EB;
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 14px;
+
+    margin-top: 10px;
 }
 
-.result-row {
+.gp-card {
 
-    width: 100%;
+    position: relative;
 
-    min-height: 56px;
+    min-height: 105px;
 
-    padding: 11px 0;
+    padding: 18px;
 
     display: flex;
 
+    flex-direction: column;
+
     align-items: center;
 
-    justify-content: space-between;
+    justify-content: center;
 
-    gap: 12px;
+    text-align: center;
 
-    border-bottom:
+    background:
+        linear-gradient(
+            135deg,
+            #E8F5F6,
+            #D7ECEF
+        );
+
+    border:
         1px solid
-        #E5E7EB;
+        #A9CDD3;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 14px
+        rgba(15,76,92,0.10);
+
+    overflow: hidden;
 }
 
-.result-left {
+.gp-card::before {
 
-    flex: 1;
+    content: "";
 
-    min-width: 0;
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 4px;
+
+    background: #0F4C5C;
 }
 
-.result-name {
+.gp-card-label {
 
-    color: #334155;
+    color: #0F4C5C;
 
     font-size: 12px;
 
     font-weight: bold;
+
+    letter-spacing: 0.3px;
 }
 
-.result-note {
+.gp-card-value {
 
-    margin-top: 3px;
+    margin-top: 8px;
 
-    color: #64748B;
+    color: #083B46;
 
-    font-size: 9px;
-}
+    font-size: 23px;
 
-.result-value {
+    line-height: 1;
 
-    color: #1F2937;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-    white-space: nowrap;
-}
-
-.highlight {
-
-    padding-left: 10px;
-
-    padding-right: 10px;
-
-    border-radius: 7px;
-
-    background: #EDF7F8;
-}
-
-.highlight .result-value {
-
-    color: #0F4C5C;
-
-    font-size: 17px;
+    font-weight: 900;
 }
 
 
 /* =========================================================
-   VIEW DETAILS BUTTON
+   DETAILS BUTTON
    ========================================================= */
 
 .details-button {
@@ -825,6 +839,9 @@ button {
     font-size: 12px;
 
     font-weight: bold;
+
+    transition:
+        background 0.2s ease;
 }
 
 .details-button:hover {
@@ -834,7 +851,7 @@ button {
 
 
 /* =========================================================
-   MODAL
+   PASSWORD MODAL
    ========================================================= */
 
 .modal-overlay {
@@ -862,10 +879,6 @@ button {
     width: 100%;
 
     max-width: 420px;
-
-    max-height: 90vh;
-
-    overflow-y: auto;
 
     padding: 20px;
 
@@ -934,6 +947,10 @@ button {
 .password-input:focus {
 
     border-color: #0F4C5C;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(15,76,92,0.10);
 }
 
 .modal-buttons {
@@ -978,6 +995,7 @@ button {
 
 /* =========================================================
    CALCULATION DETAILS
+   HIDDEN BY DEFAULT
    ========================================================= */
 
 .calculation-details {
@@ -986,7 +1004,7 @@ button {
 
     margin-top: 18px;
 
-    padding: 15px;
+    padding: 16px;
 
     border:
         1px solid
@@ -999,7 +1017,7 @@ button {
 
 .details-title {
 
-    margin: 0 0 12px 0;
+    margin: 0 0 14px 0;
 
     color: #0F4C5C;
 
@@ -1010,9 +1028,9 @@ button {
 
 .details-section {
 
-    margin-top: 15px;
+    margin-top: 16px;
 
-    padding-top: 12px;
+    padding-top: 13px;
 
     border-top:
         1px solid
@@ -1044,7 +1062,7 @@ button {
     grid-template-columns:
         1fr 1fr;
 
-    gap: 5px 12px;
+    gap: 6px 12px;
 }
 
 .detail-label {
@@ -1097,14 +1115,9 @@ button {
 
     color: #475569;
 
-    font-family:
-        Cambria,
-        Georgia,
-        serif;
-
     font-size: 11px;
 
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .calculation-result {
@@ -1225,10 +1238,20 @@ button {
         width: 100%;
     }
 
-    .details-grid {
+    .gp-result {
 
         grid-template-columns:
-            1fr 1fr;
+            1fr;
+    }
+
+    .gp-card {
+
+        min-height: 95px;
+    }
+
+    .gp-card-value {
+
+        font-size: 22px;
     }
 
     .modal-overlay {
@@ -1333,7 +1356,7 @@ button {
             <div class="form-grid">
 
 
-                <!-- PRODUCT SEARCH -->
+                <!-- PRODUCT NAME SEARCH -->
 
                 <div class="form-group"
                      style="position:relative;">
@@ -1373,8 +1396,33 @@ button {
 
 
                     <small class="help">
-                        Type product name or product code
+                        Search by Product Name or Product Code
                     </small>
+
+                </div>
+
+
+                <!-- PRODUCT CODE -->
+
+                <div class="form-group">
+
+                    <label for="productCode">
+
+                        Product Code
+
+                        <span class="auto-badge">
+                            AUTO
+                        </span>
+
+                    </label>
+
+                    <input
+                        id="productCode"
+                        class="form-control auto-input"
+                        type="text"
+                        value=""
+                        placeholder="Product Code"
+                        readonly>
 
                 </div>
 
@@ -1591,9 +1639,7 @@ button {
             </div>
 
 
-            <!-- =================================================
-                 BUTTONS
-                 ================================================= -->
+            <!-- BUTTONS -->
 
             <div class="buttons">
 
@@ -1630,7 +1676,8 @@ button {
 
 
         <!-- =================================================
-             RESULT SECTION
+             GP RESULT SECTION
+             ONLY GP ₹ AND GP %
              ================================================= -->
 
         <div class="section">
@@ -1642,115 +1689,26 @@ button {
                 </h2>
 
                 <p>
-                    Press Calculate GP to calculate profitability
+                    Gross Profit result
                 </p>
 
             </div>
 
 
-            <div class="result">
-
-
-                <!-- PTS -->
-
-                <div class="result-row">
-
-                    <div class="result-left">
-
-                        <div class="result-name">
-                            PTS
-                        </div>
-
-                        <div class="result-note">
-                            Calculated from MRP and GST
-                        </div>
-
-                    </div>
-
-                    <div
-                        id="rPts"
-                        class="result-value">
-
-                        ₹ 0.00
-
-                    </div>
-
-                </div>
-
-
-                <!-- FREE QTY -->
-
-                <div class="result-row">
-
-                    <div class="result-left">
-
-                        <div class="result-name">
-                            Free Qty %
-                        </div>
-
-                        <div class="result-note">
-                            Free quantity against purchased quantity
-                        </div>
-
-                    </div>
-
-                    <div
-                        id="rBonusPercent"
-                        class="result-value">
-
-                        0.00%
-
-                    </div>
-
-                </div>
-
-
-                <!-- EFFECTIVE TP -->
-
-                <div class="result-row">
-
-                    <div class="result-left">
-
-                        <div class="result-name">
-                            Effective TP
-                        </div>
-
-                        <div class="result-note">
-                            TP including free quantity cost
-                        </div>
-
-                    </div>
-
-                    <div
-                        id="rEffectiveTP"
-                        class="result-value">
-
-                        ₹ 0.00
-
-                    </div>
-
-                </div>
+            <div class="gp-result">
 
 
                 <!-- GP RUPEES -->
 
-                <div class="result-row highlight">
+                <div class="gp-card">
 
-                    <div class="result-left">
-
-                        <div class="result-name">
-                            GP (₹)
-                        </div>
-
-                        <div class="result-note">
-                            PTS − Effective TP
-                        </div>
-
+                    <div class="gp-card-label">
+                        GP (₹)
                     </div>
 
                     <div
                         id="rGP"
-                        class="result-value">
+                        class="gp-card-value">
 
                         ₹ 0.00
 
@@ -1761,23 +1719,15 @@ button {
 
                 <!-- GP PERCENT -->
 
-                <div class="result-row highlight">
+                <div class="gp-card">
 
-                    <div class="result-left">
-
-                        <div class="result-name">
-                            GP (%)
-                        </div>
-
-                        <div class="result-note">
-                            GP ÷ PTS × 100
-                        </div>
-
+                    <div class="gp-card-label">
+                        GP (%)
                     </div>
 
                     <div
                         id="rGPPercent"
-                        class="result-value">
+                        class="gp-card-value">
 
                         0.00%
 
@@ -1790,7 +1740,7 @@ button {
 
 
             <!-- =================================================
-                 VIEW CALCULATION DETAILS
+                 PASSWORD PROTECTED DETAILS BUTTON
                  ================================================= -->
 
             <button
@@ -1805,6 +1755,7 @@ button {
 
             <!-- =================================================
                  CALCULATION DETAILS
+                 HIDDEN BY DEFAULT
                  ================================================= -->
 
             <div
@@ -1829,12 +1780,24 @@ button {
 
                     <div class="details-grid">
 
+
                         <div class="detail-label">
                             Product Name
                         </div>
 
                         <div
                             id="dProduct"
+                            class="detail-value">
+                            -
+                        </div>
+
+
+                        <div class="detail-label">
+                            Product Code
+                        </div>
+
+                        <div
+                            id="dProductCode"
                             class="detail-value">
                             -
                         </div>
@@ -1873,12 +1836,38 @@ button {
                         </div>
 
 
+                        <!-- PTS AFTER MRP -->
+
+                        <div class="detail-label">
+                            PTS
+                        </div>
+
+                        <div
+                            id="dPTS"
+                            class="detail-value">
+                            -
+                        </div>
+
+
                         <div class="detail-label">
                             TP
                         </div>
 
                         <div
                             id="dTP"
+                            class="detail-value">
+                            -
+                        </div>
+
+
+                        <!-- EFFECTIVE TP AFTER TP -->
+
+                        <div class="detail-label">
+                            Effective TP
+                        </div>
+
+                        <div
+                            id="dEffectiveTP"
                             class="detail-value">
                             -
                         </div>
@@ -1927,19 +1916,19 @@ button {
                             -
                         </div>
 
+
                     </div>
 
                 </div>
 
 
-                <!-- FREE QTY CALCULATION -->
+                <!-- FREE QTY -->
 
                 <div class="details-section">
 
                     <h4>
                         Free Quantity Calculation
                     </h4>
-
 
                     <div class="calculation-box">
 
@@ -1964,14 +1953,13 @@ button {
                 </div>
 
 
-                <!-- PTS CALCULATION -->
+                <!-- PTS -->
 
                 <div class="details-section">
 
                     <h4>
                         PTS Calculation
                     </h4>
-
 
                     <div class="calculation-box">
 
@@ -2004,7 +1992,6 @@ button {
                         Effective TP Calculation
                     </h4>
 
-
                     <div class="calculation-box">
 
                         <div class="calculation-label">
@@ -2028,14 +2015,13 @@ button {
                 </div>
 
 
-                <!-- GP RUPEES -->
+                <!-- GP ₹ -->
 
                 <div class="details-section">
 
                     <h4>
                         GP (₹) Calculation
                     </h4>
-
 
                     <div class="calculation-box">
 
@@ -2060,14 +2046,13 @@ button {
                 </div>
 
 
-                <!-- GP PERCENT -->
+                <!-- GP % -->
 
                 <div class="details-section">
 
                     <h4>
                         GP (%) Calculation
                     </h4>
-
 
                     <div class="calculation-box">
 
@@ -2092,8 +2077,6 @@ button {
                 </div>
 
 
-                <!-- HIDE DETAILS -->
-
                 <button
                     id="hideDetailsButton"
                     class="details-button"
@@ -2107,6 +2090,8 @@ button {
 
         </div>
 
+
+        <!-- FOOTER -->
 
         <div class="footer">
 
@@ -2195,15 +2180,10 @@ button {
 <script>
 
 /* =========================================================
-   FORMULA PASSWORD
-   =========================================================
-
-   CHANGE THIS PASSWORD IF REQUIRED.
-
+   PASSWORD
    ========================================================= */
 
-const FORMULA_PASSWORD =
-    "2580";
+const FORMULA_PASSWORD = "2580";
 
 
 /* =========================================================
@@ -2211,114 +2191,61 @@ const FORMULA_PASSWORD =
    ========================================================= */
 
 const productSearch =
-    document.getElementById(
-        "productSearch"
-    );
+    document.getElementById("productSearch");
+
+const productCode =
+    document.getElementById("productCode");
 
 const searchResults =
-    document.getElementById(
-        "searchResults"
-    );
+    document.getElementById("searchResults");
 
 const packSize =
-    document.getElementById(
-        "packSize"
-    );
+    document.getElementById("packSize");
 
 const gst =
-    document.getElementById(
-        "gst"
-    );
+    document.getElementById("gst");
 
 const mrp =
-    document.getElementById(
-        "mrp"
-    );
-
-const tp =
-    document.createElement(
-        "input"
-    );
+    document.getElementById("mrp");
 
 const bonusQty =
-    document.getElementById(
-        "bonusQty"
-    );
+    document.getElementById("bonusQty");
 
 const plusButton =
-    document.getElementById(
-        "plusButton"
-    );
+    document.getElementById("plusButton");
 
 const bonusPercent =
-    document.getElementById(
-        "bonusPercent"
-    );
+    document.getElementById("bonusPercent");
 
 const pts =
-    document.getElementById(
-        "pts"
-    );
+    document.getElementById("pts");
 
 const calculateButton =
-    document.getElementById(
-        "calculate"
-    );
+    document.getElementById("calculate");
 
 const resetButton =
-    document.getElementById(
-        "reset"
-    );
+    document.getElementById("reset");
 
 const errorBox =
-    document.getElementById(
-        "error"
-    );
+    document.getElementById("error");
 
 
 /* =========================================================
    HIDDEN TP
-
-   TP is not displayed but is retained
-   internally for calculation.
-
    ========================================================= */
 
-tp.type =
-    "hidden";
-
-tp.id =
-    "tp";
+let hiddenTP = 0;
 
 
 /* =========================================================
-   RESULTS
+   RESULT
    ========================================================= */
 
-const resultPts =
-    document.getElementById(
-        "rPts"
-    );
-
-const resultBonusPercent =
-    document.getElementById(
-        "rBonusPercent"
-    );
-
-const resultEffectiveTP =
-    document.getElementById(
-        "rEffectiveTP"
-    );
-
 const resultGP =
-    document.getElementById(
-        "rGP"
-    );
+    document.getElementById("rGP");
 
 const resultGPPercent =
-    document.getElementById(
-        "rGPPercent"
-    );
+    document.getElementById("rGPPercent");
 
 
 /* =========================================================
@@ -2326,19 +2253,13 @@ const resultGPPercent =
    ========================================================= */
 
 const detailsButton =
-    document.getElementById(
-        "detailsButton"
-    );
+    document.getElementById("detailsButton");
 
 const hideDetailsButton =
-    document.getElementById(
-        "hideDetailsButton"
-    );
+    document.getElementById("hideDetailsButton");
 
 const calculationDetails =
-    document.getElementById(
-        "calculationDetails"
-    );
+    document.getElementById("calculationDetails");
 
 
 /* =========================================================
@@ -2346,134 +2267,91 @@ const calculationDetails =
    ========================================================= */
 
 const passwordModal =
-    document.getElementById(
-        "passwordModal"
-    );
+    document.getElementById("passwordModal");
 
 const passwordInput =
-    document.getElementById(
-        "passwordInput"
-    );
+    document.getElementById("passwordInput");
 
 const passwordError =
-    document.getElementById(
-        "passwordError"
-    );
+    document.getElementById("passwordError");
 
 const cancelPassword =
-    document.getElementById(
-        "cancelPassword"
-    );
+    document.getElementById("cancelPassword");
 
 const confirmPassword =
-    document.getElementById(
-        "confirmPassword"
-    );
+    document.getElementById("confirmPassword");
 
 
 /* =========================================================
-   PRODUCT DETAILS ELEMENTS
+   DETAIL ELEMENTS
    ========================================================= */
 
 const dProduct =
-    document.getElementById(
-        "dProduct"
-    );
+    document.getElementById("dProduct");
+
+const dProductCode =
+    document.getElementById("dProductCode");
 
 const dPackSize =
-    document.getElementById(
-        "dPackSize"
-    );
+    document.getElementById("dPackSize");
 
 const dGST =
-    document.getElementById(
-        "dGST"
-    );
+    document.getElementById("dGST");
 
 const dMRP =
-    document.getElementById(
-        "dMRP"
-    );
+    document.getElementById("dMRP");
+
+const dPTS =
+    document.getElementById("dPTS");
 
 const dTP =
-    document.getElementById(
-        "dTP"
-    );
+    document.getElementById("dTP");
+
+const dEffectiveTP =
+    document.getElementById("dEffectiveTP");
 
 const dBonus =
-    document.getElementById(
-        "dBonus"
-    );
+    document.getElementById("dBonus");
 
 const dPurchased =
-    document.getElementById(
-        "dPurchased"
-    );
+    document.getElementById("dPurchased");
 
 const dFree =
-    document.getElementById(
-        "dFree"
-    );
+    document.getElementById("dFree");
 
 const dFreePercent =
-    document.getElementById(
-        "dFreePercent"
-    );
+    document.getElementById("dFreePercent");
 
-
-/* =========================================================
-   FORMULA ELEMENTS
-   ========================================================= */
 
 const formulaFree =
-    document.getElementById(
-        "formulaFree"
-    );
+    document.getElementById("formulaFree");
 
 const formulaFreeResult =
-    document.getElementById(
-        "formulaFreeResult"
-    );
+    document.getElementById("formulaFreeResult");
 
 const formulaPTS =
-    document.getElementById(
-        "formulaPTS"
-    );
+    document.getElementById("formulaPTS");
 
 const formulaPTSResult =
-    document.getElementById(
-        "formulaPTSResult"
-    );
+    document.getElementById("formulaPTSResult");
 
 const formulaEffectiveTP =
-    document.getElementById(
-        "formulaEffectiveTP"
-    );
+    document.getElementById("formulaEffectiveTP");
 
 const formulaEffectiveTPResult =
-    document.getElementById(
-        "formulaEffectiveTPResult"
-    );
+    document.getElementById("formulaEffectiveTPResult");
 
 const formulaGP =
-    document.getElementById(
-        "formulaGP"
-    );
+    document.getElementById("formulaGP");
 
 const formulaGPResult =
-    document.getElementById(
-        "formulaGPResult"
-    );
+    document.getElementById("formulaGPResult");
 
 const formulaGPPercent =
-    document.getElementById(
-        "formulaGPPercent"
-    );
+    document.getElementById("formulaGPPercent");
 
 const formulaGPPercentResult =
-    document.getElementById(
-        "formulaGPPercentResult"
-    );
+    document.getElementById("formulaGPPercentResult");
 
 
 /* =========================================================
@@ -2488,7 +2366,7 @@ let lastCalculation = null;
 
 
 /* =========================================================
-   NUMBER CLEANER
+   NUMBER
    ========================================================= */
 
 function cleanNumber(value) {
@@ -2502,13 +2380,12 @@ function cleanNumber(value) {
     }
 
 
-    let text =
+    const text =
         String(value)
             .trim()
             .replace(/₹/g, "")
             .replace(/%/g, "")
-            .replace(/,/g, "")
-            .trim();
+            .replace(/,/g, "");
 
 
     if (
@@ -2549,10 +2426,7 @@ function money(value) {
     }
 
 
-    return (
-        "₹ " +
-        value.toFixed(2)
-    );
+    return "₹ " + value.toFixed(2);
 }
 
 
@@ -2592,8 +2466,7 @@ function parseCSV(text) {
 
     let value = "";
 
-    let insideQuotes =
-        false;
+    let insideQuotes = false;
 
 
     for (
@@ -2812,6 +2685,7 @@ function parseCSV(text) {
 
 
     if (
+        codeIndex === -1 ||
         nameIndex === -1 ||
         packIndex === -1 ||
         gstIndex === -1 ||
@@ -2820,7 +2694,7 @@ function parseCSV(text) {
     ) {
 
         throw new Error(
-            "CSV must contain Product Name, Pack Size, GST %, TP and MRP columns."
+            "CSV must contain Product Code, Product Name, Pack Size, GST %, TP and MRP."
         );
     }
 
@@ -2840,6 +2714,11 @@ function parseCSV(text) {
 
         const name =
             current[nameIndex] ||
+            "";
+
+
+        const code =
+            current[codeIndex] ||
             "";
 
 
@@ -2867,6 +2746,7 @@ function parseCSV(text) {
 
 
         if (
+            code !== "" &&
             name !== "" &&
             pack !== "" &&
             gstValue !== null &&
@@ -2877,12 +2757,7 @@ function parseCSV(text) {
             output.push({
 
                 code:
-                    codeIndex >= 0
-                        ? (
-                            current[codeIndex] ||
-                            ""
-                        )
-                        : "",
+                    code,
 
                 name:
                     name,
@@ -2908,7 +2783,7 @@ function parseCSV(text) {
 
 
 /* =========================================================
-   LOAD PRODUCTS
+   LOAD CSV
    ========================================================= */
 
 async function loadProducts() {
@@ -2952,7 +2827,6 @@ async function loadProducts() {
             );
         }
 
-
     }
     catch (error) {
 
@@ -2960,14 +2834,14 @@ async function loadProducts() {
 
 
         showError(
-            "Product Master could not be loaded. Please check product-master.csv and make sure it contains: Product Code, Product Name, Pack Size, GST %, TP and MRP."
+            "Product Master could not be loaded. Check product-master.csv and make sure it contains: Product Code, Product Name, Pack Size, GST %, TP and MRP."
         );
     }
 }
 
 
 /* =========================================================
-   SEARCH PRODUCTS
+   SEARCH
    ========================================================= */
 
 productSearch.addEventListener(
@@ -3010,6 +2884,7 @@ productSearch.addEventListener(
                     function(item) {
 
                         return (
+
                             item.name
                                 .toLowerCase()
                                 .includes(query)
@@ -3019,6 +2894,7 @@ productSearch.addEventListener(
                             item.code
                                 .toLowerCase()
                                 .includes(query)
+
                         );
                     }
                 )
@@ -3037,6 +2913,7 @@ productSearch.addEventListener(
                 '<div class="no-result">' +
                 'No product found' +
                 '</div>';
+
 
             searchResults.style.display =
                 "block";
@@ -3072,19 +2949,16 @@ productSearch.addEventListener(
 
                     '<span class="search-result-info">' +
 
-                    (
+                    "Product Code: " +
+
+                    escapeHTML(
                         item.code
-                            ? "Code: " +
-                              escapeHTML(
-                                  item.code
-                              ) +
-                              " | "
-                            : ""
                     )
 
                     +
 
-                    "Pack: " +
+                    " | Pack: " +
+
                     escapeHTML(
                         item.pack
                     )
@@ -3092,12 +2966,10 @@ productSearch.addEventListener(
                     +
 
                     " | GST: " +
+
                     item.gst.toFixed(2) +
-                    "%"
 
-                    +
-
-                    '</span>';
+                    "%</span>";
 
 
                 div.addEventListener(
@@ -3131,22 +3003,27 @@ productSearch.addEventListener(
 function escapeHTML(value) {
 
     return String(value)
+
         .replace(
             /&/g,
             "&amp;"
         )
+
         .replace(
             /</g,
             "&lt;"
         )
+
         .replace(
             />/g,
             "&gt;"
         )
+
         .replace(
             /"/g,
             "&quot;"
         )
+
         .replace(
             /'/g,
             "&#039;"
@@ -3168,6 +3045,10 @@ function selectProduct(item) {
         item.name;
 
 
+    productCode.value =
+        item.code;
+
+
     packSize.value =
         item.pack;
 
@@ -3180,8 +3061,8 @@ function selectProduct(item) {
         item.mrp.toFixed(2);
 
 
-    tp.value =
-        item.tp.toFixed(2);
+    hiddenTP =
+        item.tp;
 
 
     searchResults.style.display =
@@ -3204,7 +3085,7 @@ function selectProduct(item) {
 
 
 /* =========================================================
-   CLICK OUTSIDE SEARCH
+   SEARCH OUTSIDE
    ========================================================= */
 
 document.addEventListener(
@@ -3233,6 +3114,9 @@ document.addEventListener(
 
 function clearAutoFields() {
 
+    productCode.value =
+        "";
+
     packSize.value =
         "";
 
@@ -3242,8 +3126,8 @@ function clearAutoFields() {
     mrp.value =
         "0.00";
 
-    tp.value =
-        "0.00";
+    hiddenTP =
+        0;
 
     pts.value =
         "0.00";
@@ -3256,7 +3140,7 @@ function clearAutoFields() {
 
 
 /* =========================================================
-   CALCULATE PTS
+   PTS
    ========================================================= */
 
 function calculatePTS() {
@@ -3287,6 +3171,7 @@ function calculatePTS() {
 
 
     const result =
+
         (
             mrpValue /
             (
@@ -3294,9 +3179,13 @@ function calculatePTS() {
                 gstValue / 100
             )
         )
+
         *
+
         0.80
+
         *
+
         0.90;
 
 
@@ -3411,11 +3300,14 @@ function calculateBonusPercent() {
 
 
     const percent =
+
         (
             bonus.free /
             bonus.purchased
         )
+
         *
+
         100;
 
 
@@ -3491,7 +3383,7 @@ bonusQty.addEventListener(
 
 
 /* =========================================================
-   PLUS BUTTON
+   MOBILE PLUS BUTTON
    ========================================================= */
 
 plusButton.addEventListener(
@@ -3499,8 +3391,7 @@ plusButton.addEventListener(
     function() {
 
         const current =
-            bonusQty.value
-                .trim();
+            bonusQty.value.trim();
 
 
         if (
@@ -3552,15 +3443,6 @@ plusButton.addEventListener(
 
 function clearResults() {
 
-    resultPts.textContent =
-        "₹ 0.00";
-
-    resultBonusPercent.textContent =
-        "0.00%";
-
-    resultEffectiveTP.textContent =
-        "₹ 0.00";
-
     resultGP.textContent =
         "₹ 0.00";
 
@@ -3574,7 +3456,7 @@ function clearResults() {
 
 
 /* =========================================================
-   MAIN GP CALCULATION
+   MAIN CALCULATION
    ========================================================= */
 
 function calculateGP() {
@@ -3599,13 +3481,11 @@ function calculateGP() {
     /* TP */
 
     const tpValue =
-        cleanNumber(
-            tp.value
-        );
+        hiddenTP;
 
 
     if (
-        tpValue === null ||
+        !Number.isFinite(tpValue) ||
         tpValue < 0
     ) {
 
@@ -3638,11 +3518,14 @@ function calculateGP() {
     /* FREE QTY % */
 
     const freeQtyPercent =
+
         (
             bonus.free /
             bonus.purchased
         )
+
         *
+
         100;
 
 
@@ -3695,6 +3578,7 @@ function calculateGP() {
     /* PTS */
 
     const ptsValue =
+
         (
             mrpValue /
             (
@@ -3702,9 +3586,13 @@ function calculateGP() {
                 gstValue / 100
             )
         )
+
         *
+
         0.80
+
         *
+
         0.90;
 
 
@@ -3730,14 +3618,16 @@ function calculateGP() {
     /* EFFECTIVE TP */
 
     const effectiveTP =
+
         tpValue *
+
         (
             1 +
             freeQtyPercent / 100
         );
 
 
-    /* GP ₹ */
+    /* GP */
 
     const gp =
         ptsValue -
@@ -3747,47 +3637,29 @@ function calculateGP() {
     /* GP % */
 
     const gpPercent =
+
         (
             gp /
             ptsValue
         )
+
         *
+
         100;
 
 
-    /* RESULTS */
-
-    resultPts.textContent =
-        money(
-            ptsValue
-        );
-
-
-    resultBonusPercent.textContent =
-        freeQtyPercent.toFixed(2)
-        +
-        "%";
-
-
-    resultEffectiveTP.textContent =
-        money(
-            effectiveTP
-        );
-
+    /* DISPLAY ONLY GP */
 
     resultGP.textContent =
-        money(
-            gp
-        );
+        money(gp);
 
 
     resultGPPercent.textContent =
-        gpPercent.toFixed(2)
-        +
+        gpPercent.toFixed(2) +
         "%";
 
 
-    /* SAVE CALCULATION */
+    /* SAVE */
 
     lastCalculation = {
 
@@ -3838,9 +3710,8 @@ function calculateGP() {
 
 
     /*
-       If calculation details
-       were already unlocked,
-       update them immediately.
+       Details are hidden by default.
+       If already unlocked, update them.
     */
 
     if (
@@ -3850,24 +3721,6 @@ function calculateGP() {
 
         populateCalculationDetails();
     }
-
-
-    setTimeout(
-        function() {
-
-            document
-                .querySelector(".result")
-                .scrollIntoView({
-                    behavior:
-                        "smooth",
-
-                    block:
-                        "nearest"
-                });
-
-        },
-        100
-    );
 }
 
 
@@ -3887,12 +3740,48 @@ calculateButton.addEventListener(
 
 
 /* =========================================================
-   DETAILS BUTTON
+   DETAILS PASSWORD BUTTON
    ========================================================= */
 
 detailsButton.addEventListener(
     "click",
     function() {
+
+        /*
+           If details are already visible,
+           hide them.
+        */
+
+        if (
+            calculationDetails.style.display ===
+            "block"
+        ) {
+
+            calculationDetails.style.display =
+                "none";
+
+            detailsButton.textContent =
+                "🔒 VIEW CALCULATION DETAILS";
+
+            return;
+        }
+
+
+        /*
+           Otherwise ask for password.
+        */
+
+        if (
+            !lastCalculation
+        ) {
+
+            showError(
+                "Please calculate GP first before viewing calculation details."
+            );
+
+            return;
+        }
+
 
         passwordInput.value =
             "";
@@ -3902,6 +3791,7 @@ detailsButton.addEventListener(
 
         passwordModal.style.display =
             "flex";
+
 
         setTimeout(
             function() {
@@ -3978,7 +3868,7 @@ confirmPassword.addEventListener(
 
 
 /* =========================================================
-   ENTER KEY PASSWORD
+   ENTER PASSWORD
    ========================================================= */
 
 passwordInput.addEventListener(
@@ -3996,55 +3886,7 @@ passwordInput.addEventListener(
 
 
 /* =========================================================
-   DETAILS BUTTON TOGGLE
-   ========================================================= */
-
-detailsButton.addEventListener(
-    "click",
-    function() {
-
-        if (
-            calculationDetails.style.display ===
-            "block"
-        ) {
-
-            calculationDetails.style.display =
-                "none";
-
-            detailsButton.textContent =
-                "🔒 VIEW CALCULATION DETAILS";
-        }
-    }
-);
-
-
-/* =========================================================
-   HIDE DETAILS
-   ========================================================= */
-
-hideDetailsButton.addEventListener(
-    "click",
-    function() {
-
-        calculationDetails.style.display =
-            "none";
-
-        detailsButton.textContent =
-            "🔒 VIEW CALCULATION DETAILS";
-
-        detailsButton.scrollIntoView({
-            behavior:
-                "smooth",
-
-            block:
-                "center"
-        });
-    }
-);
-
-
-/* =========================================================
-   POPULATE CALCULATION DETAILS
+   POPULATE DETAILS
    ========================================================= */
 
 function populateCalculationDetails() {
@@ -4052,13 +3894,6 @@ function populateCalculationDetails() {
     if (
         !lastCalculation
     ) {
-
-        showError(
-            "Please calculate GP first before viewing calculation details."
-        );
-
-        calculationDetails.style.display =
-            "none";
 
         return;
     }
@@ -4068,10 +3903,14 @@ function populateCalculationDetails() {
         lastCalculation;
 
 
-    /* PRODUCT DETAILS */
+    /* PRODUCT */
 
     dProduct.textContent =
         c.product;
+
+
+    dProductCode.textContent =
+        c.code;
 
 
     dPackSize.textContent =
@@ -4084,15 +3923,27 @@ function populateCalculationDetails() {
 
 
     dMRP.textContent =
-        money(
-            c.mrp
-        );
+        money(c.mrp);
+
+
+    /*
+       PTS AFTER MRP
+    */
+
+    dPTS.textContent =
+        money(c.pts);
 
 
     dTP.textContent =
-        money(
-            c.tp
-        );
+        money(c.tp);
+
+
+    /*
+       EFFECTIVE TP AFTER TP
+    */
+
+    dEffectiveTP.textContent =
+        money(c.effectiveTP);
 
 
     dBonus.textContent =
@@ -4112,7 +3963,7 @@ function populateCalculationDetails() {
         "%";
 
 
-    /* FREE QTY */
+    /* FREE QTY FORMULA */
 
     formulaFree.textContent =
 
@@ -4130,7 +3981,7 @@ function populateCalculationDetails() {
         "%";
 
 
-    /* PTS */
+    /* PTS FORMULA */
 
     formulaPTS.textContent =
 
@@ -4199,6 +4050,33 @@ function populateCalculationDetails() {
 
 
 /* =========================================================
+   HIDE DETAILS
+   ========================================================= */
+
+hideDetailsButton.addEventListener(
+    "click",
+    function() {
+
+        calculationDetails.style.display =
+            "none";
+
+
+        detailsButton.textContent =
+            "🔒 VIEW CALCULATION DETAILS";
+
+
+        detailsButton.scrollIntoView({
+            behavior:
+                "smooth",
+
+            block:
+                "center"
+        });
+    }
+);
+
+
+/* =========================================================
    RESET
    ========================================================= */
 
@@ -4217,11 +4095,7 @@ resetButton.addEventListener(
             "";
 
 
-        searchResults.style.display =
-            "none";
-
-
-        searchResults.innerHTML =
+        productCode.value =
             "";
 
 
@@ -4233,12 +4107,12 @@ resetButton.addEventListener(
             "0.00";
 
 
-        tp.value =
-            "0.00";
-
-
         mrp.value =
             "0.00";
+
+
+        hiddenTP =
+            0;
 
 
         pts.value =
@@ -4262,6 +4136,10 @@ resetButton.addEventListener(
 
         detailsButton.textContent =
             "🔒 VIEW CALCULATION DETAILS";
+
+
+        passwordModal.style.display =
+            "none";
 
 
         hideError();
@@ -4292,7 +4170,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   LOAD APPLICATION
+   LOAD
    ========================================================= */
 
 document.addEventListener(
@@ -4305,7 +4183,6 @@ document.addEventListener(
 );
 
 </script>
-
 
 </body>
 
